@@ -1,0 +1,36 @@
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
+
+const Employee = sequelize.define(
+  'Employee',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: { isEmail: true },
+    },
+    passwordHash: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    tableName: 'employees',
+    indexes: [{ unique: true, fields: ['email'] }],
+  }
+);
+
+module.exports = Employee;
+
+
+
